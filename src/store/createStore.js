@@ -5,8 +5,9 @@ import * as reducers from './reducers'
 console.log("reducers", reducers);
 export default function configureStore(initialState): Store {
   const store = createStore(
-    combineReducers({ ...reducers }),
-    initialState
+    combineReducers({ ...reducers.reducers }),
+    initialState,
+    applyMiddleware(reduxThunkMiddleware)
   )
 
   return store

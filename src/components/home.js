@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 
-class HomeContainer extends Component {
+class Home extends Component {
 
   onPress(){
     Actions.counter();
@@ -11,16 +11,16 @@ class HomeContainer extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}> React-Native redux starter </Text>
+        <Text style={styles.title}> React-Native Redux Starter Kit </Text>
         <TouchableOpacity onPress={() => this.onPress()}>
           <Text style={styles.buttonText}> COUNTER </Text>
         </TouchableOpacity>
+        <Text style={styles.text}> Welcome! </Text>
+        <Image style={styles.image} source={require('../routes/Home/assets/Duck.jpg')} />
       </View>
     )
   }
 }
-
-export default HomeContainer
 
 const styles = StyleSheet.create({
   container: {
@@ -29,17 +29,31 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
   },
-  text: {
+  title: {
     fontSize: 20,
+    fontWeight: 'bold',
     textAlign: 'center',
     margin: 10,
+  },
+  text: {
+    fontSize: 18,
+    textAlign: 'center',
+    margin: 10,
+    marginTop: 20
   },
   buttonText: {
     fontSize: 15,
     textAlign: 'center',
     margin: 10,
+    color: 'deepskyblue',
     textDecorationLine: 'underline',
     textDecorationStyle: 'solid',
-    textDecorationColor: 'rgb(0, 0, 0)',
+    textDecorationColor: 'deepskyblue',
   },
+  image: {
+    width: 100,
+    height: 100
+  }
 })
+
+export default Home
