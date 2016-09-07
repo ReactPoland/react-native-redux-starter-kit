@@ -1,15 +1,26 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { increment, doubleAsync } from '../modules/dashboardReducer'
+import { visitsIncrement } from '../modules/dashboardReducer'
 import Dashboard from '../../../components/Dashboard/dashboard'
 
+class DashboardContainer extends Component {
+  componentDidMount(){
+  	this.props.visitsIncrement();
+  }
+
+  render() {
+    return (
+      <Dashboard {...this.props}/>
+    )
+  }
+}
+
 const mapActionCreators = {
-  increment,
-  doubleAsync
+  visitsIncrement
 }
 
 const mapStateToProps = (state) => ({
   value: state.dashboard,
 })
 
-export default connect(mapStateToProps, mapActionCreators)(Dashboard)
+export default connect(mapStateToProps, mapActionCreators)(DashboardContainer)
