@@ -1,10 +1,10 @@
-const INCREMENT = 'INCREMENT'
+const VISITS_COUNT = 'VISITS_COUNT'
 
 export const doubleAsync = () => {
   return (dispatch, getState) => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        dispatch(increment(getState().counter))
+        dispatch(increment(getState().dashboard))
         resolve()
       }, 400)
     })
@@ -12,15 +12,15 @@ export const doubleAsync = () => {
 }
 
 export const increment = (value = 1) => ({
-  type: INCREMENT,
+  type: VISITS_COUNT,
   value
 })
 
 const initialState = 0
 
-export default function counter(state = initialState, action) {
+export default function dashboard(state = initialState, action) {
   switch (action.type) {
-    case INCREMENT:
+    case VISITS_COUNT:
       return state + action.value
     default:
       return state
