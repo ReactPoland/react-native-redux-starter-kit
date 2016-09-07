@@ -20,7 +20,8 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state) => ({
-  value: state.dashboard,
+  value: state.dashboard.visitsCount,
+  list: state.dashboard.list
 })
 
 export default connect(mapStateToProps, mapActionCreators)(DashboardContainer)

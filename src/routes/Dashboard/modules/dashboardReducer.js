@@ -5,12 +5,21 @@ export const visitsIncrement = (value = 1) => ({
   value
 })
 
-const initialState = 0
+const initialState = {
+  visitsCount: 0,
+  list: [
+    {key: 0, label: 'Angular'},
+    {key: 1, label: 'JQuery'},
+    {key: 2, label: 'Polymer'},
+    {key: 3, label: 'ReactJS'}
+  ]
+}
 
 export default function dashboard(state = initialState, action) {
   switch (action.type) {
     case DASHBOARD_VISITS_INCREMENT:
-      return state + action.value
+      state.visitsCount = state.visitsCount + action.value
+      return Object.assign({}, state)
     default:
       return state
   }
