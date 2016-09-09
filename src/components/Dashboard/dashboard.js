@@ -1,8 +1,9 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, TextInput, StyleSheet} from 'react-native'
+import LoginDashboard from './loginDashboard'
 
 const Dashboard = (props) => {
-  const { value, list, onChangeText, submitAction, itemOnEdit, textInput, buttonText } = props;
+  const { value, list, onChangeText, submitAction, itemOnEdit, textInput, buttonText, loginAsync, isNotLoggedIn, loginToken } = props;
 
   const inputSubmitAction = () => {
     submitAction();
@@ -20,18 +21,31 @@ const Dashboard = (props) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>
-        Dashboard visits: <Text style={styles.value}>{value}</Text>
-      </Text>
-      <TextInput
-        style={styles.inputText}
-        onChangeText={(text) => onChangeText(text)}
-        value={textInput}
-        placeholder='Type here new label' />
-      <TouchableOpacity onPress={inputSubmitAction} style={styles.button}>
-        <Text style={styles.buttonText}> {buttonText} </Text>
-      </TouchableOpacity>
-      {listJSX}
+      {
+        (isNotLoggedIn) ? <LoginDashboard submitLogin={loginAsync} isError={loginToken === 'invalid'}/> : null
+      }
+      {
+        (isNotLoggedIn) ?
+          <Text style={styles.text}>
+              Please LogIn first.
+          </Text>
+          :
+          <View>
+            <Text style={styles.text}>
+              Dashboard visits: <Text style={styles.value}>{value}</Text>
+            </Text>
+            <TextInput
+              style={styles.inputText}
+              onChangeText={(text) => onChangeText(text)}
+              value={textInput}
+              placeholder='Type here new label' />
+            <TouchableOpacity onPress={inputSubmitAction} style={styles.button}>
+              <Text style={styles.buttonText}> {buttonText} </Text>
+            </TouchableOpacity>
+            {listJSX}
+          </View>
+      }
+
     </View>
   )
 }

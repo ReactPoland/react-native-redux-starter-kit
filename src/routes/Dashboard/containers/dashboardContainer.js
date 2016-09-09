@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { visitsIncrement, dashboardAddItem, dashboardEditItem } from '../modules/dashboardReducer'
+import { loginAsync  } from '../../../modules/session'
 import Dashboard from '../../../components/Dashboard/dashboard'
 
 class DashboardContainer extends Component {
@@ -73,12 +74,15 @@ class DashboardContainer extends Component {
 const mapActionCreators = {
   visitsIncrement,
   dashboardAddItem,
-  dashboardEditItem
+  dashboardEditItem,
+  loginAsync
 }
 
 const mapStateToProps = (state) => ({
   value: state.dashboard.visitsCount,
-  list: state.dashboard.list
+  list: state.dashboard.list,
+  isNotLoggedIn: state.session.isNotLoggedIn,
+  loginToken: state.session.loginToken
 })
 
 export default connect(mapStateToProps, mapActionCreators)(DashboardContainer)
