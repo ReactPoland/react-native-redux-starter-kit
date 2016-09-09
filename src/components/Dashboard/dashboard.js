@@ -1,11 +1,21 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet} from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, StyleSheet} from 'react-native'
 
 const Dashboard = (props) => {
-  const { value, list } = props;
+  const { value, list, onChangeText, submitAction, itemOnEdit, textInput, buttonText } = props;
+
+  const inputSubmitAction = () => {
+    submitAction();
+  }
+
+  const editLabelAction = (index) => {
+    itemOnEdit(index);
+  }
 
   const listJSX = list.map((item, i) => {
-      return <Text key={i}>{item.label}</Text>
+      return <TouchableOpacity key={i} onPress={()=>editLabelAction(i)}>
+              <Text style={styles.buttonText}> {item.label} </Text>
+             </TouchableOpacity>
   })
 
   return (
@@ -13,6 +23,14 @@ const Dashboard = (props) => {
       <Text style={styles.text}>
         Dashboard visits: <Text style={styles.value}>{value}</Text>
       </Text>
+      <TextInput
+        style={styles.inputText}
+        onChangeText={(text) => onChangeText(text)}
+        value={textInput}
+        placeholder='Type here new label' />
+      <TouchableOpacity onPress={inputSubmitAction} style={styles.button}>
+        <Text style={styles.buttonText}> {buttonText} </Text>
+      </TouchableOpacity>
       {listJSX}
     </View>
   )
@@ -35,6 +53,25 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'limegreen',
     textAlign: 'center',
+  },
+  inputText: {
+    height: 30,
+    borderColor: 'gray',
+    borderWidth: 1,
+    margin: 10,
+  },
+  button: {
+    paddingLeft: 4,
+    paddingRight: 4,
+    backgroundColor: 'rgb(233, 233, 233)',
+    borderWidth: 1,
+    borderColor: 'rgb(213, 213, 213)',
+    margin: 10,
+  },
+  buttonText: {
+    fontSize: 15,
+    textAlign: 'center',
+    margin: 10,
   },
   item: {
     fontSize: 20,
