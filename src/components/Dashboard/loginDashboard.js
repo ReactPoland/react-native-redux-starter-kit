@@ -29,6 +29,7 @@ const LoginDashboard = (props) => {
       <TextInput
         style={styles.inputText}
         onChangeText={(text) => onPasswordChangeText(text)}
+        secureTextEntry={true}
         placeholder='Password' />
       <TouchableOpacity onPress={()=>submitLogin(loginObject)} style={styles.button}>
         <Text style={styles.buttonText}> {'Login'} </Text>
