@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, TextInput, StyleSheet} from 'react-native'
 import LoginDashboard from './loginDashboard'
+import DashboardDragDropList from './dashboardDragDropList'
 
 const Dashboard = (props) => {
   const { value, list, onChangeText, submitAction, itemOnEdit, textInput, buttonText, loginAsync, isNotLoggedIn, loginToken } = props;
@@ -14,18 +15,16 @@ const Dashboard = (props) => {
   }
 
   const listJSX = list.map((item, i) => {
-      return <TouchableOpacity key={i} onPress={()=>editLabelAction(i)}>
-              <Text style={styles.buttonText}> {item.label} </Text>
-             </TouchableOpacity>
+      return <Text style={styles.buttonText}> {item.label} </Text>
   })
 
   return (
     <View style={styles.container}>
       {
-        (isNotLoggedIn) ? <LoginDashboard submitLogin={loginAsync} isError={loginToken === 'invalid'}/> : null
+        (false) ? <LoginDashboard submitLogin={loginAsync} isError={loginToken === 'invalid'}/> : null
       }
       {
-        (isNotLoggedIn) ?
+        (false) ?
           <Text style={styles.text}>
               Please LogIn first.
           </Text>
@@ -42,7 +41,7 @@ const Dashboard = (props) => {
             <TouchableOpacity onPress={inputSubmitAction} style={styles.button}>
               <Text style={styles.buttonText}> {buttonText} </Text>
             </TouchableOpacity>
-            {listJSX}
+            <DashboardDragDropList list={listJSX}/>
           </View>
       }
 
