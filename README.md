@@ -14,6 +14,10 @@ We want to keep the concept and structure of the project as in React 'web' proje
 https://github.com/davezuko/react-redux-starter-kit
 ```
 
+First you must to install all packages:
+```
+npm install
+```
 
 To run the project just type in the main directory of the project:
 ```
