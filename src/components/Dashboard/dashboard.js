@@ -4,27 +4,27 @@ import LoginDashboard from './loginDashboard'
 import DashboardDragDropList from './dashboardDragDropList'
 
 const Dashboard = (props) => {
-  const { value, list, onChangeText, submitAction, itemOnEdit, textInput, buttonText, loginAsync, isNotLoggedIn, loginToken } = props;
+  const { value, list, onChangeText, submitAction, itemOnEdit, textInput, buttonText, loginAsync, isNotLoggedIn, loginToken, dashboardChangeItemsOrder } = props;
 
   const inputSubmitAction = () => {
     submitAction();
   }
 
-  const editLabelAction = (index) => {
-    itemOnEdit(index);
+  const editLabelAction = (key) => {
+    itemOnEdit(key);
   }
 
-  const listJSX = list.map((item, i) => {
-      return <Text style={styles.buttonText}> {item.label} </Text>
-  })
+  const changeItemsOrder = (newOrder) => {
+    dashboardChangeItemsOrder(newOrder);
+  }
 
   return (
     <View style={styles.container}>
       {
-        (false) ? <LoginDashboard submitLogin={loginAsync} isError={loginToken === 'invalid'}/> : null
+        (isNotLoggedIn) ? <LoginDashboard submitLogin={loginAsync} isError={loginToken === 'invalid'}/> : null
       }
       {
-        (false) ?
+        (isNotLoggedIn) ?
           <Text style={styles.text}>
               Please LogIn first.
           </Text>
@@ -41,7 +41,7 @@ const Dashboard = (props) => {
             <TouchableOpacity onPress={inputSubmitAction} style={styles.button}>
               <Text style={styles.buttonText}> {buttonText} </Text>
             </TouchableOpacity>
-            <DashboardDragDropList list={listJSX}/>
+            <DashboardDragDropList list={list} editLabelAction={editLabelAction} changeItemsOrder={changeItemsOrder}/>
           </View>
       }
 
