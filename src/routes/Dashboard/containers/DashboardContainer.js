@@ -1,29 +1,15 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { 
-  dashboardVisitIncrement, 
-  dashboardAddItem,
-  dashboardEditItem 
-} from '../modules/dashboard'
-import Dashboard from 'components/Dashboard'
+import { visitsIncrement, dashboardAddItem, dashboardEditItem } from '../modules/dashboardReducer'
+import Dashboard from '../../../components/Dashboard/dashboard'
 
-const mapActionCreators = {
-  dashboardVisitIncrement: () => dashboardVisitIncrement(1),
-  dashboardAddItem: (value) => dashboardAddItem(value),
-  dashboardEditItem: (value) => dashboardEditItem(value)
-}
+class DashboardContainer extends Component {
 
-const mapStateToProps = (state) => ({
-  dashboard: state.dashboard
-})
-
-
-class DashboardContainer extends React.Component {
   constructor(props) {
     super(props)
 
-    this.inputOnChange = this.inputOnChange.bind(this)
-    this.onSubmit = this.onSubmit.bind(this)
+    this.onChangeText = this.onChangeText.bind(this)
+    this.submitAction = this.submitAction.bind(this)
     this.itemOnEdit = this.itemOnEdit.bind(this)
 
 
@@ -33,43 +19,66 @@ class DashboardContainer extends React.Component {
     }
   }
 
-  componentDidMount() {
-    this.props.dashboardVisitIncrement();
+  componentDidMount(){
+    const { visitsIncrement } = this.props;
+    visitsIncrement();
   }
 
-  inputOnChange(e) {
-    this.setState({ inputValue: e.target.value })
+  onChangeText(newText) {
+    this.setState({ inputValue: newText })
   }
 
-  itemOnEdit(itemIndex) {
-    const editedItem = this.props.dashboard.dashboardItems[itemIndex]
-    this.setState({ inputValue: editedItem.label, editedItemIndex: itemIndex })
-  }
+  submitAction() {
+    const { dashboardAddItem, dashboardEditItem } = this.props;
+    const { inputValue, editedItemIndex } = this.state;
 
-  onSubmit(e) {
-    e.preventDefault()
-    const val = this.state.inputValue
-    const editedItemIndex = this.state.editedItemIndex
-    if(val && editedItemIndex !== null) {
-      this.props.dashboardEditItem({ val, editedItemIndex })
-      this.setState({ inputValue: '', editedItemIndex: null })
-    } else if(val) {
-      this.props.dashboardAddItem(val)
-      this.setState({ inputValue: '' })
+    if(editedItemIndex === null){
+      dashboardAddItem(inputValue);
     } else {
-      alert(`Value can't be empty`)
+      dashboardEditItem(inputValue, editedItemIndex);
     }
+
+
+    this.setState({
+      inputValue: '',
+      editedItemIndex: null
+    })
   }
 
-  render () {
+  itemOnEdit(index) {
+    const { list } = this.props;
+    const item = list[index];
+    this.setState({
+      inputValue: item.label,
+      editedItemIndex: index
+    });
+  }
+
+  render() {
+    const { inputValue, editedItemIndex } = this.state;
+    const buttonText = (editedItemIndex === null) ? 'Add item' : 'Edit item';
+
     return (
-      <View>
-        <Text>
-          Dashboard React Native Placeholder
-        </Text>
-      </View>
-    );
+      <Dashboard
+        {...this.props}
+        onChangeText={this.onChangeText}
+        submitAction={this.submitAction}
+        itemOnEdit={this.itemOnEdit}
+        textInput={inputValue}
+        buttonText={buttonText} />
+    )
   }
 }
+
+const mapActionCreators = {
+  visitsIncrement,
+  dashboardAddItem,
+  dashboardEditItem
+}
+
+const mapStateToProps = (state) => ({
+  value: state.dashboard.visitsCount,
+  list: state.dashboard.list
+})
 
 export default connect(mapStateToProps, mapActionCreators)(DashboardContainer)
