@@ -1,5 +1,5 @@
 import DashboardContainer from './containers/DashboardContainer'
-import reducer from './modules/dashboardReducer'
+import reducer from './modules/dashboard'
 
 export default {
   path: 'dashboard',

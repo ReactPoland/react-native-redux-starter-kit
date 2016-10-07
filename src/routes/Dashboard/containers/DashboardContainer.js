@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { visitsIncrement, dashboardAddItem, dashboardEditItem } from '../modules/dashboardReducer'
-import Dashboard from '../../../components/Dashboard/dashboard'
+import { visitsIncrement, dashboardAddItem, dashboardEditItem } from '../modules/dashboard'
+import Dashboard from '../../../components/Dashboard/Dashboard'
 
 class DashboardContainer extends Component {
 
