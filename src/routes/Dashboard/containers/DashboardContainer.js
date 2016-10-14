@@ -14,7 +14,7 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state) => ({
-  dashboard: state.dashboard
+  dashboard: state.dashboardReducer
 })
 
 

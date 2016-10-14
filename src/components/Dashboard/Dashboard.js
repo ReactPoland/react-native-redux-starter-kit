@@ -3,11 +3,10 @@ import { View, Text, StyleSheet} from 'react-native'
 
 
 export const Dashboard = (props) => {
-
   return (
   <View style={styles.container}>
     <Text style={styles.text}>
-      Mocked Dashboard
+      Dashboard visits: <Text style={styles.value}>{props.dashboard.visitsCount}</Text>
     </Text>
   </View>
 )}

@@ -2,7 +2,7 @@ import React from 'react'
 import { Actions, Scene } from 'react-native-router-flux'
 import Routes from '../routes/index'
 
-console.log("Routes", Routes);
+// console.log("Routes", Routes);
 
 const createScenes = () => {
 	return Routes.childRoutes.map((route)=>{
