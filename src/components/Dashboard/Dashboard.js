@@ -1,17 +1,26 @@
 import React from 'react'
-import { View, Text, StyleSheet} from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity} from 'react-native'
 
 
 export const Dashboard = (props) => {
+
+  const listJSX = props.dashboard.dashboardItems.map((item, i) => {
+    return (
+        <TouchableOpacity key={i} onPress={props.itemOnEdit.bind(undefined,i)}>
+          <Text style={styles.buttonText}> {item.label} </Text>
+        </TouchableOpacity>
+      )
+  })
+
   return (
-  <View style={styles.container}>
-    <Text style={styles.text}>
-      Dashboard visits: <Text style={styles.value}>{props.dashboard.visitsCount}</Text>
-    </Text>
-  </View>
-)}
-
-
+    <View style={styles.container}>
+      <Text style={styles.text}>
+        Dashboard visits: <Text style={styles.value}>{props.dashboard.visitsCount}</Text>
+      </Text>
+      {listJSX}
+    </View>
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
