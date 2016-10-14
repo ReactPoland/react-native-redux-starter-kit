@@ -5,7 +5,7 @@ import {
   dashboardAddItem,
   dashboardEditItem 
 } from '../modules/dashboard'
-import Dashboard from 'components/Dashboard'
+import Dashboard from '../../../components/Dashboard'
 
 const mapActionCreators = {
   dashboardVisitIncrement: () => dashboardVisitIncrement(1),
