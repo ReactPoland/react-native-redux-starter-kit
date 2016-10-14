@@ -38,6 +38,7 @@ class DashboardContainer extends React.Component {
   }
 
   inputOnChange(e) {
+    console.info('e.target.value', e)
     this.setState({ inputValue: e.target.value })
   }
 

@@ -1,8 +1,16 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity} from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, TextInput} from 'react-native'
 
 
 export const Dashboard = (props) => {
+  const onChangePolifil = (text) => { 
+    const eventPolifil = {
+      target: {
+        value: text
+      }
+    }
+    props.inputOnChange(eventPolifil)
+  }
 
   const listJSX = props.dashboard.dashboardItems.map((item, i) => {
     return (
@@ -17,6 +25,12 @@ export const Dashboard = (props) => {
       <Text style={styles.text}>
         Dashboard visits: <Text style={styles.value}>{props.dashboard.visitsCount}</Text>
       </Text>
+      <TextInput
+        style={styles.inputText}
+        onChangeText={(text) => onChangePolifil(text)}
+        value={props.inputValue}
+        placeholder='Type here new label' />
+
       {listJSX}
     </View>
   )
