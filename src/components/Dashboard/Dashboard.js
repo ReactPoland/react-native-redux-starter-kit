@@ -3,6 +3,14 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput} from 'react-native
 
 
 export const Dashboard = (props) => {
+
+  const onSubmitPolifil = () => {
+    const eventPolifil = {
+      preventDefault: () => {}
+    }
+    props.onSubmit(eventPolifil)
+  }
+
   const onChangePolifil = (text) => { 
     const eventPolifil = {
       target: {
@@ -30,7 +38,9 @@ export const Dashboard = (props) => {
         onChangeText={(text) => onChangePolifil(text)}
         value={props.inputValue}
         placeholder='Type here new label' />
-
+      <TouchableOpacity onPress={onSubmitPolifil} style={styles.button}>
+        <Text style={styles.buttonText}> {props.editedItemIndex === null ? 'Add New Item To The List' : 'Edit Item'} </Text>
+      </TouchableOpacity>
       {listJSX}
     </View>
   )
