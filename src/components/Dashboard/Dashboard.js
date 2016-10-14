@@ -1,18 +1,50 @@
 import React from 'react'
-import { View, Text, StyleSheet} from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, TextInput} from 'react-native'
 
 
 export const Dashboard = (props) => {
 
+  const onSubmitPolifil = () => {
+    const eventPolifil = {
+      preventDefault: () => {}
+    }
+    props.onSubmit(eventPolifil)
+  }
+
+  const onChangePolifil = (text) => { 
+    const eventPolifil = {
+      target: {
+        value: text
+      }
+    }
+    props.inputOnChange(eventPolifil)
+  }
+
+  const listJSX = props.dashboard.dashboardItems.map((item, i) => {
+    return (
+        <TouchableOpacity key={i} onPress={props.itemOnEdit.bind(undefined,i)}>
+          <Text style={styles.buttonText}> {item.label} </Text>
+        </TouchableOpacity>
+      )
+  })
+
   return (
-  <View style={styles.container}>
-    <Text style={styles.text}>
-      Mocked Dashboard
-    </Text>
-  </View>
-)}
-
-
+    <View style={styles.container}>
+      <Text style={styles.text}>
+        Dashboard visits: <Text style={styles.value}>{props.dashboard.visitsCount}</Text>
+      </Text>
+      <TextInput
+        style={styles.inputText}
+        onChangeText={(text) => onChangePolifil(text)}
+        value={props.inputValue}
+        placeholder='Type here new label' />
+      <TouchableOpacity onPress={onSubmitPolifil} style={styles.button}>
+        <Text style={styles.buttonText}> {props.editedItemIndex === null ? 'Add New Item To The List' : 'Edit Item'} </Text>
+      </TouchableOpacity>
+      {listJSX}
+    </View>
+  )
+}
 
 const styles = StyleSheet.create({
   container: {

@@ -14,7 +14,7 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state) => ({
-  dashboard: state.dashboard
+  dashboard: state.dashboardReducer
 })
 
 
@@ -38,6 +38,7 @@ class DashboardContainer extends React.Component {
   }
 
   inputOnChange(e) {
+    console.info('e.target.value', e)
     this.setState({ inputValue: e.target.value })
   }
 
